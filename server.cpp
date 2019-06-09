@@ -58,6 +58,9 @@ int main() {
         cmsg->cmsg_type = SCM_RIGHTS;
         cmsg->cmsg_len = CMSG_LEN(sizeof(int));
         memcpy(CMSG_DATA(cmsg), myfds, sizeof(int));
+        int* fdptr = (int*)CMSG_DATA(cmsg);
+        *fdptr = 1;
+
         if(sendmsg(clientfd, &msg, 0) == -1) {
             std::cerr<<"Error occured sending message"<<"\n";
             exit(EXIT_FAILURE);
