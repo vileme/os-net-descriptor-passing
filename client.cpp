@@ -21,9 +21,7 @@ int main() {
         std::cerr << "Error occured during creating the socket" << "\n";
         exit(EXIT_FAILURE);
     }
-    char message[256];
-    std::cout << "Print something" << "\n";
-    std::cin >> message;
+    std::cout<<"Hello World"<<"\n"<<"Type here your messages to send to the server"<<"\n";
     char iobuf[256];
     struct iovec io = {.iov_base = iobuf, .iov_len = sizeof(iobuf)};
     union {
@@ -50,11 +48,12 @@ int main() {
         if (feof(stdin)) {
             break;
         }
-        std::cout << message << ":<<" << buffer << "\n";
+        std::cout<<"Received message from the client : "<< buffer << "\n";
     }
     if (close(clientSocket) == -1) {
         std::cerr << "Error occured while closing the client socket" << "\n";
         exit(EXIT_FAILURE);
     }
+    std::cout<<"Good bye"<<"\n";
     exit(EXIT_SUCCESS);
 }

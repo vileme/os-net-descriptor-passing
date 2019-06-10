@@ -61,5 +61,9 @@ int main() {
             std::cerr<<"Error occured sending message"<<"\n";
             exit(EXIT_FAILURE);
         }
+        if(close(sockfd) == -1){
+            std::cerr<<"Error occured while closing the server"<<"\n";
+            exit(EXIT_FAILURE);
+    }
     }
 }
