@@ -36,10 +36,10 @@ int main() {
     }
     int clientfd;
     while ((clientfd = accept(sockfd, NULL, NULL)) != -1) {
-        struct msghdr msg = {nullptr };
+        struct msghdr msg = {nullptr};
         struct cmsghdr *cmsg;
         int myfds[sizeof(int)];  /* Contains the file descriptors to pass */
-        char iobuf[1];
+        char iobuf[256];
         struct iovec io = {
                 .iov_base = iobuf,
                 .iov_len = sizeof(iobuf)
@@ -57,10 +57,6 @@ int main() {
         cmsg->cmsg_level = SOL_SOCKET;
         cmsg->cmsg_type = SCM_RIGHTS;
         cmsg->cmsg_len = CMSG_LEN(sizeof(int));
-        memcpy(CMSG_DATA(cmsg), myfds, sizeof(int));
-        int* fdptr = (int*)CMSG_DATA(cmsg);
-        *fdptr = 1;
-
         if(sendmsg(clientfd, &msg, 0) == -1) {
             std::cerr<<"Error occured sending message"<<"\n";
             exit(EXIT_FAILURE);
