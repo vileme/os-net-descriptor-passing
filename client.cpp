@@ -45,9 +45,6 @@ int main() {
     while (true) {
         char buffer[256];
         std::cin >> buffer;
-        if (feof(stdin)) {
-            break;
-        }
         std::cout<<"Received message from the client : "<< buffer << "\n";
     }
     if (close(clientSocket) == -1) {
