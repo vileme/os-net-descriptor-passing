@@ -11,7 +11,7 @@
 #include <iostream>
 
 void deleteDir(){
-    if (remove("/tmp/hw7") == -1) {
+    if ((unlink("/tmp/hw7") == -1) && errno != ENOENT) {
         std::cerr<<"Error occured during removing the directory"<<"\n";
         exit(EXIT_FAILURE);
     }
